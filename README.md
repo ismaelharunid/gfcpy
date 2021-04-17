@@ -19,6 +19,6 @@ gfc -- v0.0 -- prints table of factors
         --n-start=n         the number to start with (default: 1).
         --as-tuples=b       if True (default) then format as factors.
         --table-selector=s  the class selector name for the table(s).
-        --style_sheet=s     a filepath or url of a stylesheet to include.
+        --style-sheet=s     a filepath or url of a stylesheet to include.
         --md                print as markdown instead of html
 ```
