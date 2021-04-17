@@ -28,7 +28,7 @@ the 7th prime number is 17
 Usage (command line):
 
 ```
-$ python pfc.py --help
+$ python gfc.py --help
 gfc -- v0.0 -- prints table of factors
     Usage:
         gfc n-columns [n-rows] [n-pages] [n_start] {extra-options}
