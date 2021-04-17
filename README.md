@@ -1,6 +1,8 @@
 # gfcpy
 
-A prime, factor and factor table generator
+A prime, factor and factor table generator.
+
+See [https://github.com/ismaelharunid/gfcpy/wiki](https://github.com/ismaelharunid/gfcpy/wiki) for a sample of the factor tables generated.
 
 Installation:
 
