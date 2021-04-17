@@ -1,6 +1,6 @@
 # gfcpy
 
-A factor and factor table generator
+A prime, factor and factor table generator
 
 Installation:
 
