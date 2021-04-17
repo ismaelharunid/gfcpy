@@ -57,7 +57,7 @@ def sanity(i0=0, i1=10001):
         assert i == prod(ps), "we hate {:} with {:}".format(i, ps)
     return True
 
-def print_factor_table(n_columns=7, n_rows=7, n_pages=1, n_start=1,
+def print_factor_htmltable(n_columns=7, n_rows=7, n_pages=1, n_start=1,
                        as_tuples=False,
                        table_selector="prime-table",
                        style_sheet=None):
@@ -127,6 +127,46 @@ table.{selector} span.factors {{
     print(''.join(lines))
     return n_start + i
 
+def print_factor_mdtable(n_columns=7, n_rows=7, n_pages=1, n_start=1,
+                       as_tuples=False):
+    from numpy import sqrt, ceil
+    #print(n_columns, n_rows, n_pages, n_start, as_tuples,
+    #      table_selector, style_sheet)
+    if n_rows is None:
+        n_rows = max(1, int(sqrt(n_columns)))
+        n_columns = int(ceil(n_columns / n_rows))
+    items_per_page = n_rows * n_columns
+    max_items = items_per_page * n_pages
+    lines = []
+    i, val = 0, n_start
+    while i < max_items:
+        if i % items_per_page == 0:
+            lines.append('\n| Factors for {valstart} through {valstop} |'
+                         .format(valstart=val,
+                                 valstop=val + items_per_page - 1)
+                         + ' | ' * (n_columns - 1))
+            lines.append('\n| -' + '- | -' * (n_columns - 1) + '- |')
+            lines.append('\n| ')
+        elif i % n_columns == 0:
+            lines.append('| ')
+        factors = (' &times; '.join(str(n) for n in gfc(val))
+                   if as_tuples else
+                   ' &times; '.join("{:}^{:}"
+                                    .format(*nf)
+                                    for nf in gfc(val, True)))
+        lines.append(('{:} = {:} |')
+                     .format(val, factors))
+        i += 1
+        val += 1
+        if i % items_per_page == 0:
+            lines.append('\n')
+        elif i % n_columns == 0:
+            lines.append('</tr>\n')
+    if i % items_per_page != 0:
+        pass
+    print(''.join(lines))
+    return n_start + i
+
 def main(*args, debug=False):
     """gfc -- v0.0 -- prints table of factors
     Usage:
@@ -144,6 +184,7 @@ def main(*args, debug=False):
         --as-tuples=b       if True (default) then format as factors.
         --table-selector=s  the class selector name for the table(s).
         --style_sheet=s     a filepath or url of a stylesheet to include.
+        --md                print as markdown instead of html
     """
     if any(name in ("-?", "-h", "--help") for name in args):
         print(main.__doc__)
@@ -163,6 +204,11 @@ def main(*args, debug=False):
             kwargs[kw] = kwval
         else:
             i_args += 1
+    if 'md' in kwargs:
+        kwargs['as_markdown'] = kwargs.pop('md')
+    print_factor = print_factor_htmltable \
+            if kwargs.pop('as_markdown', False) else \
+            print_factor_mdtable
     names = ("n_columns", "n_rows", "n_pages", "n_start",
              "as_tuples", "table_selector", "style_sheet")
     for name in names:
@@ -185,11 +231,11 @@ def main(*args, debug=False):
     msgs = []
     if not (args or unsupported or bad_values):
         if debug:
-            print_factor_table(**kwargs)
+            print_factor(**kwargs)
             return 0
         else:
             try:
-                print_factor_table(**kwargs)
+                print_factor(**kwargs)
             except Exception as msg:
                 msgs.append(str(msg))
             else:
