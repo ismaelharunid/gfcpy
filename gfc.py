@@ -176,14 +176,14 @@ def main(*args, debug=False):
             or
         any variation of the above 2, positional arguments match the
         positions presented above.
-    options:
+    Options:
         --n-columns=n       the number of columns in table.
         --n-rows=n          the number of rows in table.
         --n-pages=n         the number of table pages.
         --n-start=n         the number to start with (default: 1).
         --as-tuples=b       if True (default) then format as factors.
         --table-selector=s  the class selector name for the table(s).
-        --style_sheet=s     a filepath or url of a stylesheet to include.
+        --style-sheet=s     a filepath or url of a stylesheet to include.
         --md                print as markdown instead of html
     """
     if any(name in ("-?", "-h", "--help") for name in args):
@@ -206,9 +206,10 @@ def main(*args, debug=False):
             i_args += 1
     if 'md' in kwargs:
         kwargs['as_markdown'] = kwargs.pop('md')
-    print_factor = print_factor_htmltable \
-            if kwargs.pop('as_markdown', False) else \
-            print_factor_mdtable
+    print_factor = print_factor_htmltable
+    if 'as_markdown' in kwargs:
+        kwargs.pop('as_markdown')
+        print_factor = print_factor_mdtable
     names = ("n_columns", "n_rows", "n_pages", "n_start",
              "as_tuples", "table_selector", "style_sheet")
     for name in names:
