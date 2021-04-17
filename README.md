@@ -6,7 +6,7 @@ Installation:
 
 ```
 $ git clone https://github.com/ismaelharunid/gfcpy.git
-$ cp gfc.py /home/<your-username>/<your-project>
+$ cp gfcpy/gfc.py /home/<your-username>/<your-project>
 ```
 
 Usage (as module):
