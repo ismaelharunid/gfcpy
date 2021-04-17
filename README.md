@@ -12,7 +12,7 @@ gfc -- v0.0 -- prints table of factors
             or
         any variation of the above 2, positional arguments match the
         positions presented above.
-    options:
+    Options:
         --n-columns=n       the number of columns in table.
         --n-rows=n          the number of rows in table.
         --n-pages=n         the number of table pages.
