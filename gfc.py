@@ -88,9 +88,6 @@ table.{selector} span.number {{
   text-align: right;
   width: 54px;
 }}
-table.{selector} span.number::after {{
-  content: " =";
-}}
 table.{selector} span.factors {{
   padding-left: 9px;
 }}
