@@ -113,7 +113,7 @@ table.{selector} span.factors {{
                    ' &times; '.join("{:}<sup>{:}</sup>"
                                     .format(*nf)
                                     for nf in gfc(val, True)))
-        lines.append(('<td><span class="number">{:}</span>'
+        lines.append(('<td><span class="number">{:}</span> = '
                       '<span class="factors">{:}</span></td>')
                      .format(val, factors))
         i += 1
